@@ -36,4 +36,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function user_note()
+    {
+        // O Usuário pode ter várias notas.
+        return $this->hasMany(UserNote::class);
+    }
 }
