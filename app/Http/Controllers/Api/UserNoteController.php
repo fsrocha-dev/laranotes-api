@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\UserNote;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserNoteRequest;
 
 class UserNoteController extends Controller
 {
@@ -37,7 +37,7 @@ class UserNoteController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(UserNoteRequest $request)
     {
 
         $data = $request->all();
@@ -58,7 +58,7 @@ class UserNoteController extends Controller
 
     }
 
-    public function update($id, Request $request)
+    public function update($id, UserNoteRequest $request)
     {
         $data = $request->all();
 
