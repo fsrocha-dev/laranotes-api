@@ -64,4 +64,22 @@ class UserNoteController extends Controller
         }
     }
 
+        public function destroy($id)
+    {
+        try {
+
+            $userNote = $this->userNote->findOrFail($id);
+            $userNote->delete();
+
+            return response()->json([
+                'data' => [
+                    'msg' => 'success_delete_note'
+                ]
+            ], 200);
+
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 401);
+        }
+    }
+
 }
