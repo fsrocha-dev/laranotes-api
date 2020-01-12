@@ -29,10 +29,7 @@ class UserNoteController extends Controller
             $userNote = $this->userNote->findOrFail($id);
 
             return response()->json([
-                'data' => [
-                    'msg' => 'success_show_note',
-                    'data' => $userNote
-                ]
+                'data' => $userNote
             ], 200);
 
         }catch(\Exception $e){
