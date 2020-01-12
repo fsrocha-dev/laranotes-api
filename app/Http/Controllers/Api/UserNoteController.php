@@ -23,6 +23,23 @@ class UserNoteController extends Controller
         return response()->json($userNote, 200);
     }
 
+    public function show($id)
+    {
+        try {
+            $userNote = $this->userNote->findOrFail($id);
+
+            return response()->json([
+                'data' => [
+                    'msg' => 'success_show_note',
+                    'data' => $userNote
+                ]
+            ], 200);
+
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 401);
+        }
+    }
+
     public function store(Request $request)
     {
 
@@ -64,7 +81,7 @@ class UserNoteController extends Controller
         }
     }
 
-        public function destroy($id)
+    public function destroy($id)
     {
         try {
 
