@@ -43,4 +43,25 @@ class UserNoteController extends Controller
         }
 
     }
+
+    public function update($id, Request $request)
+    {
+        $data = $request->all();
+
+        try {
+
+            $userNote = $this->userNote->findOrFail($id);
+            $userNote->update($data);
+
+            return response()->json([
+                'data' => [
+                    'msg' => 'success_update_note'
+                ]
+            ], 200);
+
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 401);
+        }
+    }
+
 }

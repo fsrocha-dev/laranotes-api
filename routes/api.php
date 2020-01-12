@@ -19,9 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->namespace('Api')->group(function() {
 
-    Route::prefix('user-notes')->name('user_notes.')->group(function() {
+    Route::name('user_notes.')->group(function() {
 
-        Route::resource('/', 'UserNoteController');
+        Route::resource('user-notes', 'UserNoteController');
 
     });
 });
