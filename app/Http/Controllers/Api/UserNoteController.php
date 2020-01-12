@@ -22,4 +22,25 @@ class UserNoteController extends Controller
 
         return response()->json($userNote, 200);
     }
+
+    public function store(Request $request)
+    {
+
+        $data = $request->all();
+
+        try {
+
+            $userNote = $this->userNote->create($data);
+
+            return response()->json([
+                'data' => [
+                    'msg' => 'success_create_note'
+                ]
+            ], 200);
+
+        }catch(\Exception $e){
+            return response()->json(['error' => $e->getMessage()], 401);
+        }
+
+    }
 }
