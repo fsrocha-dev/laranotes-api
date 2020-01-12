@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\UserNote;
+use App\Api\ApiMessages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserNoteRequest;
 
@@ -33,7 +34,8 @@ class UserNoteController extends Controller
             ], 200);
 
         }catch(\Exception $e){
-            return response()->json(['error' => $e->getMessage()], 401);
+            $message = new ApiMessages($e->getMessage());
+            return response()->json($message->getMessage(), 401);
         }
     }
 
@@ -44,7 +46,7 @@ class UserNoteController extends Controller
 
         try {
 
-            $userNote = $this->userNote->create($data);
+            $userNote = $this->userNdote->create($data);
 
             return response()->json([
                 'data' => [
@@ -53,7 +55,8 @@ class UserNoteController extends Controller
             ], 200);
 
         }catch(\Exception $e){
-            return response()->json(['error' => $e->getMessage()], 401);
+            $message = new ApiMessages($e->getMessage());
+            return response()->json($message->getMessage(), 401);
         }
 
     }
@@ -74,7 +77,8 @@ class UserNoteController extends Controller
             ], 200);
 
         }catch(\Exception $e){
-            return response()->json(['error' => $e->getMessage()], 401);
+            $message = new ApiMessages($e->getMessage());
+            return response()->json($message->getMessage(), 401);
         }
     }
 
@@ -92,7 +96,8 @@ class UserNoteController extends Controller
             ], 200);
 
         }catch(\Exception $e){
-            return response()->json(['error' => $e->getMessage()], 401);
+            $message = new ApiMessages($e->getMessage());
+            return response()->json($message->getMessage(), 401);
         }
     }
 
