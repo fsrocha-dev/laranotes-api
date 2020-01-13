@@ -24,4 +24,10 @@ Route::prefix('v1')->namespace('Api')->group(function() {
         Route::resource('user-notes', 'UserNoteController');
 
     });
+
+    Route::name('users.')->group(function() {
+
+        Route::resource('users', 'UserController');
+
+    });
 });
