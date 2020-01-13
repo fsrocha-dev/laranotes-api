@@ -37,8 +37,13 @@ class UserController extends Controller
     {
         $data = $request->all();
 
-        try {
+        if(!$request->has('password') || !$request->get('password')){
+            $message = new ApiMessages('password_is_required');
+            return response()->json($message->getMessage(), 401);
+        }
 
+        try {
+            $data['password'] = bcrypt($data['password']);
             $user = $this->user->create($data);
 
             return response()->json([
@@ -84,6 +89,12 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+
+        if($request->has('password') && $request->get('password')){
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
+        }
 
         try {
 
