@@ -110,10 +110,20 @@ class UserController extends Controller
             unset($data['password']);
         }
 
+        Validator::make($data, [
+            'profile.phone' => 'required',
+            'profile.mobile_phone' => 'required',
+        ])->validate();
+
         try {
+
+            $profile = $data['profile'];
+            $profile['social_networks'] = serialize($profile['social_networks']);
 
             $user = $this->user->findOrFail($id);
             $user->update($data);
+
+            $user->profile()->update($profile);
 
             return response()->json([
                 'data' => [
