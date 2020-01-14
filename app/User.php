@@ -42,4 +42,9 @@ class User extends Authenticatable
         // O Usuário pode ter várias notas.
         return $this->hasMany(UserNote::class);
     }
+
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
 }
