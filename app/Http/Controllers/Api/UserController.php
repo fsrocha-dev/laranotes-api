@@ -6,6 +6,7 @@ use App\User;
 use App\Api\ApiMessages;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -42,9 +43,22 @@ class UserController extends Controller
             return response()->json($message->getMessage(), 401);
         }
 
+        Validator::make($data, [
+            'profile.phone' => 'required',
+            'profile.mobile_phone' => 'required',
+        ])->validate();
+
         try {
+
             $data['password'] = bcrypt($data['password']);
+
             $user = $this->user->create($data);
+            //Cadastrando perfil ligado ao usuario cadastrado
+            $profile = $data['profile'];
+            $user->profile()->create([
+                'phone' => $profile['phone'],
+                'mobile_phone' => $profile['mobile_phone']
+            ]);
 
             return response()->json([
                 'data' => [
