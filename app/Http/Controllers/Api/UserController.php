@@ -81,15 +81,18 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            $user = $this->user->findOrFail($id);
+
+            $user = $this->user->with('profile')->findOrFail($id);
 
             return response()->json([
                 'data' => $user
             ], 200);
 
         }catch(\Exception $e){
+
             $message = new ApiMessages($e->getMessage());
             return response()->json($message->getMessage(), 401);
+
         }
     }
 

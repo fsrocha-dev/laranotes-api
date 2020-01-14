@@ -9,6 +9,8 @@ class UserProfile extends Model
 
     protected $table = 'user_profile';
 
+    protected $hidden = ['id', 'user_id', 'created_at'];
+
     protected $fillable = [
         'phone', 'mobile_phone', 'about', 'social_networks'
     ];
