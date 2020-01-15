@@ -19,15 +19,15 @@ class UserNoteController extends Controller
 
     public function index()
     {
-        $userNote = $this->userNote->paginate('10');
+        $userNote = auth('api')->user()->user_note();
 
-        return response()->json($userNote, 200);
+        return response()->json($userNote->paginate(10), 200);
     }
 
     public function show($id)
     {
         try {
-            $userNote = $this->userNote->findOrFail($id);
+            $userNote = auth('api')->user()->user_note()->findOrFail($id);
 
             return response()->json([
                 'data' => $userNote
@@ -45,6 +45,8 @@ class UserNoteController extends Controller
         $data = $request->all();
 
         try {
+
+            $data['user_id'] = auth('api')->user()->id;
 
             $userNote = $this->userNdote->create($data);
 
@@ -67,7 +69,7 @@ class UserNoteController extends Controller
 
         try {
 
-            $userNote = $this->userNote->findOrFail($id);
+            $userNote = auth('api')->user()->user_note()->findOrFail($id);
             $userNote->update($data);
 
             return response()->json([
@@ -86,7 +88,7 @@ class UserNoteController extends Controller
     {
         try {
 
-            $userNote = $this->userNote->findOrFail($id);
+            $userNote = auth('api')->user()->user_note()->findOrFail($id);
             $userNote->delete();
 
             return response()->json([
